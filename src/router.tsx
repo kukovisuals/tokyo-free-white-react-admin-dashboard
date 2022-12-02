@@ -14,10 +14,6 @@ const Loader = (Component) => (props) =>
     </Suspense>
   );
 
-// Pages
-
-const Overview = Loader(lazy(() => import('src/content/overview')));
-
 // Dashboards
 
 const Crypto = Loader(lazy(() => import('src/content/dashboards/Crypto')));
@@ -79,15 +75,19 @@ const StatusMaintenance = Loader(
 const routes: RouteObject[] = [
   {
     path: '',
-    element: <BaseLayout />,
+    element: <SidebarLayout />,
     children: [
       {
         path: '/',
-        element: <Overview />
+        element: <Crypto />
       },
       {
         path: 'overview',
         element: <Navigate to="/" replace />
+      },
+      {
+        path: 'messenger',
+        element: <Messenger />
       },
       {
         path: 'status',
@@ -117,24 +117,6 @@ const routes: RouteObject[] = [
       {
         path: '*',
         element: <Status404 />
-      }
-    ]
-  },
-  {
-    path: 'dashboards',
-    element: <SidebarLayout />,
-    children: [
-      {
-        path: '',
-        element: <Navigate to="crypto" replace />
-      },
-      {
-        path: 'crypto',
-        element: <Crypto />
-      },
-      {
-        path: 'messenger',
-        element: <Messenger />
       }
     ]
   },
